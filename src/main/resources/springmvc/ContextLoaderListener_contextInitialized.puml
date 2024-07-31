@@ -1,0 +1,130 @@
+@startuml
+participant Actor
+Actor -> ContextLoaderListener : contextInitialized
+activate ContextLoaderListener
+ContextLoaderListener -> ContextLoader : initWebApplicationContext
+activate ContextLoader
+ContextLoader -> ContextLoader : createWebApplicationContext
+activate ContextLoader
+ContextLoader -> ContextLoader : determineContextClass
+activate ContextLoader
+create ApplicationContextException
+ContextLoader -> ApplicationContextException : new
+activate ApplicationContextException
+ApplicationContextException --> ContextLoader
+deactivate ApplicationContextException
+create ApplicationContextException
+ContextLoader -> ApplicationContextException : new
+activate ApplicationContextException
+ApplicationContextException --> ContextLoader
+deactivate ApplicationContextException
+ContextLoader --> ContextLoader
+deactivate ContextLoader
+create ApplicationContextException
+ContextLoader -> ApplicationContextException : new
+activate ApplicationContextException
+create FatalBeanException
+ApplicationContextException -> FatalBeanException : new
+activate FatalBeanException
+FatalBeanException --> ApplicationContextException
+deactivate FatalBeanException
+ApplicationContextException --> ContextLoader
+deactivate ApplicationContextException
+ContextLoader -> BeanUtils : instantiateClass
+activate BeanUtils
+create BeanInstantiationException
+BeanUtils -> BeanInstantiationException : new
+activate BeanInstantiationException
+BeanInstantiationException --> BeanUtils
+deactivate BeanInstantiationException
+BeanUtils -> BeanUtils : instantiateClass
+activate BeanUtils
+BeanUtils --> BeanUtils
+deactivate BeanUtils
+BeanUtils -> BeanUtils : findPrimaryConstructor
+activate BeanUtils
+BeanUtils --> BeanUtils
+deactivate BeanUtils
+BeanUtils -> BeanUtils : instantiateClass
+activate BeanUtils
+BeanUtils --> BeanUtils
+deactivate BeanUtils
+create BeanInstantiationException
+BeanUtils -> BeanInstantiationException : new
+activate BeanInstantiationException
+BeanInstantiationException --> BeanUtils
+deactivate BeanInstantiationException
+create BeanInstantiationException
+BeanUtils -> BeanInstantiationException : new
+activate BeanInstantiationException
+BeanInstantiationException --> BeanUtils
+deactivate BeanInstantiationException
+BeanUtils --> ContextLoader
+deactivate BeanUtils
+ContextLoader --> ContextLoader
+deactivate ContextLoader
+ContextLoader -> ContextLoader : loadParentContext
+activate ContextLoader
+ContextLoader --> ContextLoader
+deactivate ContextLoader
+ContextLoader -> ContextLoader : configureAndRefreshWebApplicationContext
+activate ContextLoader
+ContextLoader -> ObjectUtils : identityToString
+activate ObjectUtils
+ObjectUtils -> ObjectUtils : getIdentityHexString
+activate ObjectUtils
+ObjectUtils --> ObjectUtils
+deactivate ObjectUtils
+ObjectUtils --> ContextLoader
+deactivate ObjectUtils
+ContextLoader -> ObjectUtils : getDisplayString
+activate ObjectUtils
+ObjectUtils -> ObjectUtils : nullSafeToString
+activate ObjectUtils
+ObjectUtils --> ObjectUtils
+deactivate ObjectUtils
+ObjectUtils --> ContextLoader
+deactivate ObjectUtils
+ContextLoader -> ConfigurableWebEnvironment : initPropertySources
+activate ConfigurableWebEnvironment
+ConfigurableWebEnvironment --> ContextLoader
+deactivate ConfigurableWebEnvironment
+ContextLoader -> ContextLoader : customizeContext
+activate ContextLoader
+ContextLoader -> ContextLoader : determineContextInitializerClasses
+activate ContextLoader
+ContextLoader --> ContextLoader
+deactivate ContextLoader
+ContextLoader -> GenericTypeResolver : resolveTypeArgument
+activate GenericTypeResolver
+GenericTypeResolver --> ContextLoader
+deactivate GenericTypeResolver
+create ApplicationContextException
+ContextLoader -> ApplicationContextException : new
+activate ApplicationContextException
+ApplicationContextException --> ContextLoader
+deactivate ApplicationContextException
+ContextLoader -> BeanUtils : instantiateClass
+activate BeanUtils
+BeanUtils --> ContextLoader
+deactivate BeanUtils
+ContextLoader -> AnnotationAwareOrderComparator : sort
+activate AnnotationAwareOrderComparator
+AnnotationAwareOrderComparator --> ContextLoader
+deactivate AnnotationAwareOrderComparator
+ContextLoader -> ApplicationContextInitializer : initialize
+activate ApplicationContextInitializer
+ApplicationContextInitializer --> ContextLoader
+deactivate ApplicationContextInitializer
+ContextLoader --> ContextLoader
+deactivate ContextLoader
+ContextLoader -> ConfigurableApplicationContext : refresh
+activate ConfigurableApplicationContext
+ConfigurableApplicationContext --> ContextLoader
+deactivate ConfigurableApplicationContext
+ContextLoader --> ContextLoader
+deactivate ContextLoader
+ContextLoader --> ContextLoaderListener
+deactivate ContextLoader
+return
+@enduml
